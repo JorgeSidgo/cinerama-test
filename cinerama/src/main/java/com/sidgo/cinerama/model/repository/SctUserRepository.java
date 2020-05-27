@@ -21,7 +21,7 @@ public interface SctUserRepository extends JpaRepository<SctUser, Long> {
     public List<SctUserDTO> getInactiveUsers();
 
     @Query("SELECT new com.sidgo.cinerama.model.dto.SctUserDTO(u.id, u.userName, u.firstNames, u.lastNames, u.email, u.profile.name, u.profile.id, u.profile.displayName, u.pwd, u.state) from SctUser u where u.userName = :username")
-    public SctUserDTO authUser(@Param("username") String username);
+    public SctUserDTO getUserByUsername(@Param("username") String username);
 
     @Query("SELECT new com.sidgo.cinerama.model.dto.SctUserDTO(u.id, u.userName, u.firstNames, u.lastNames, u.email, u.profile.name, u.profile.id, u.profile.displayName, u.state) from SctUser u where u.state = 1 or u.state = 2")
     Page<SctUserDTO> getActiveUsers(Pageable pageable);

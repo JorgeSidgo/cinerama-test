@@ -3,7 +3,7 @@ package com.sidgo.cinerama.model.dto;
 public class ResponseDTO {
 
     public static String COD_OK = "00";
-    public static String MSG_OK = "Successful Processing";
+    public static String MSG_OK = "Successful Request";
 
     public static String COD_ERR = "99";
     public static String MSG_ERR = "Incorrect Processing";
@@ -13,9 +13,6 @@ public class ResponseDTO {
 
     public static String COD_AUTH_DND = "02";
     public static String MSG_AUTH_DND = "Bad Credentials";
-
-    public static String COD_AUTH_INVALID_TOKEN = "02";
-    public static String MSG_AUTH_INVALID_TOKEN = "Bad Credentials";
 
     private String code;
     private int status;

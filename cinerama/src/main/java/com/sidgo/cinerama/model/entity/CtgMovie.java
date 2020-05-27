@@ -2,7 +2,7 @@ package com.sidgo.cinerama.model.entity;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
-import java.math.BigInteger;
+import java.util.Collection;
 
 @Entity
 @Table(name = "ctg_movie", schema = "cinerama")
@@ -35,15 +35,18 @@ public class CtgMovie {
     @Column(name = "sale_price")
     private BigDecimal salePrice;
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_availability")
     private CtgAvailability availability;
 
-    @Column(name = "like_count")
-    private BigInteger likeCount;
+    @Column(name = "popularity")
+    private Integer popularity;
 
     @Column(name = "state")
     private boolean state;
+
+    @OneToMany(mappedBy = "movie")
+    private Collection<CtgImage> images;
 
     public CtgMovie() {
     }
@@ -52,7 +55,7 @@ public class CtgMovie {
         this.id = id;
     }
 
-    public CtgMovie(long id, String title, String description, CtgDirector director, CtgGenre genre, int stock, BigDecimal rentalPrice, BigDecimal salePrice, CtgAvailability availability, BigInteger likeCount, boolean state) {
+    public CtgMovie(long id, String title, String description, CtgDirector director, CtgGenre genre, int stock, BigDecimal rentalPrice, BigDecimal salePrice, CtgAvailability availability, Integer popularity, boolean state, Collection<CtgImage> images) {
         this.id = id;
         this.title = title;
         this.description = description;
@@ -62,8 +65,9 @@ public class CtgMovie {
         this.rentalPrice = rentalPrice;
         this.salePrice = salePrice;
         this.availability = availability;
-        this.likeCount = likeCount;
+        this.popularity = popularity;
         this.state = state;
+        this.images = images;
     }
 
     public long getId() {
@@ -138,12 +142,12 @@ public class CtgMovie {
         this.availability = availability;
     }
 
-    public BigInteger getLikeCount() {
-        return likeCount;
+    public Integer getPopularity() {
+        return popularity;
     }
 
-    public void setLikeCount(BigInteger likeCount) {
-        this.likeCount = likeCount;
+    public void setPopularity(Integer popularity) {
+        this.popularity = popularity;
     }
 
     public boolean isState() {
@@ -152,5 +156,13 @@ public class CtgMovie {
 
     public void setState(boolean state) {
         this.state = state;
+    }
+
+    public Collection<CtgImage> getImages() {
+        return images;
+    }
+
+    public void setImages(Collection<CtgImage> images) {
+        this.images = images;
     }
 }

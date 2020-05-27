@@ -11,6 +11,7 @@ import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
@@ -53,6 +54,8 @@ public class AuthServiceImpl implements AuthService {
 
     protected String successfulAuthentication(Authentication auth) {
 
+        SecurityContextHolder.getContext().setAuthentication(auth);
+
         final String authorities = auth.getAuthorities().stream()
                 .map(GrantedAuthority::getAuthority)
                 .collect(Collectors.joining(","));
@@ -64,7 +67,7 @@ public class AuthServiceImpl implements AuthService {
                 .setSubject(((User)auth.getPrincipal()).getUsername())
                 .claim(JWTConstants.TOKEN_ROLE, authorities)
                 .setIssuedAt(new Date(System.currentTimeMillis()))
-                .setExpiration(new Date(System.currentTimeMillis() + 1800000))
+                .setExpiration(new Date(System.currentTimeMillis() + 3600000))
                 .signWith(SignatureAlgorithm.HS512, JWTConstants.SECRET_KEY.getBytes()).compact();
         return JWTConstants.TOKEN_PREFIX + token;
     }

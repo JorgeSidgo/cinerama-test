@@ -10,10 +10,13 @@ public class CtgImage {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
+    @Column(name = "code")
+    private String code;
+
     @Column(name = "path")
     private String path;
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_image_type")
     private CtgImageType imageType;
 
@@ -28,8 +31,9 @@ public class CtgImage {
         this.id = id;
     }
 
-    public CtgImage(long id, String path, CtgImageType imageType, CtgMovie movie) {
+    public CtgImage(long id, String code, String path, CtgImageType imageType, CtgMovie movie) {
         this.id = id;
+        this.code = code;
         this.path = path;
         this.imageType = imageType;
         this.movie = movie;
@@ -41,6 +45,14 @@ public class CtgImage {
 
     public void setId(long id) {
         this.id = id;
+    }
+
+    public String getCode() {
+        return code;
+    }
+
+    public void setCode(String code) {
+        this.code = code;
     }
 
     public String getPath() {

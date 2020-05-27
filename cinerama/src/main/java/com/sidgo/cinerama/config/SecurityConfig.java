@@ -46,7 +46,16 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .csrf().disable()
                 .addFilter(new JWTAuthorizationFilter(authenticationManager()))
                 .authorizeRequests()
+                .antMatchers("/static/**").permitAll()
+                .antMatchers("/dynamic/**").permitAll()
                 .antMatchers(HttpMethod.POST, "/auth").permitAll()
+                .antMatchers(HttpMethod.GET, "/v1/images/{image}").permitAll()
+                .antMatchers(HttpMethod.GET, "/v1/movies").permitAll()
+                .antMatchers(HttpMethod.GET, "/v1/movies/{id}").permitAll()
+                .antMatchers(HttpMethod.GET, "/v1/movies/admin").hasRole("ADMIN")
+                .antMatchers(HttpMethod.POST, "/v1/movies").hasRole("ADMIN")
+                .antMatchers(HttpMethod.PUT, "/v1/movies").hasRole("ADMIN")
+                .antMatchers(HttpMethod.DELETE, "/v1/movies").hasRole("ADMIN")
                 .anyRequest().authenticated();
     }
 

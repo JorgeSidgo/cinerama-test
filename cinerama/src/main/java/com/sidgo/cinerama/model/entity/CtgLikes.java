@@ -25,6 +25,11 @@ public class CtgLikes {
         this.id = id;
     }
 
+    public CtgLikes(CtgMovie movie, SctUser user) {
+        this.movie = movie;
+        this.user = user;
+    }
+
     public CtgLikes(long id, CtgMovie movie, SctUser user) {
         this.id = id;
         this.movie = movie;

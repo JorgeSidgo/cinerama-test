@@ -38,6 +38,15 @@ public class WkfMovieUpdateLog {
         this.id = id;
     }
 
+    public WkfMovieUpdateLog(SctUser user, CtgMovie movie, String updatedProp, String oldValue, String newValue) {
+        this.user = user;
+        this.movie = movie;
+        this.updatedProp = updatedProp;
+        this.oldValue = oldValue;
+        this.newValue = newValue;
+        this.createdAt = new Date();
+    }
+
     public WkfMovieUpdateLog(long id, SctUser user, CtgMovie movie, String updatedProp, String oldValue, String newValue, Date createdAt) {
         this.id = id;
         this.user = user;
