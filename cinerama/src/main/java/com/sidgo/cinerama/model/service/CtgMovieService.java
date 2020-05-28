@@ -9,7 +9,7 @@ import java.io.IOException;
 import java.net.URISyntaxException;
 
 public interface CtgMovieService {
-    Page<CtgMovieDTO> getActiveMovies(Specification<CtgMovie> spec, int page, int size, String sort);
+    Page<CtgMovieDTO> getMovies(Specification<CtgMovie> spec, int page, int size, String sort);
     CtgMovieDTO getActiveMovie(long id);
     CtgMovieDTO save(CtgMovieDTO movie) throws IOException, URISyntaxException;
     CtgMovieDTO update(long id, CtgMovieDTO movie);

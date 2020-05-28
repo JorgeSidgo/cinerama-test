@@ -1,0 +1,52 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta name="viewport" content="width=device-width">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <link href="https://fonts.googleapis.com/css2?family=Reem+Kufi&display=swap" rel="stylesheet">
+    <title>Cinerama - Confirmado</title>
+</head>
+<style>
+    *{
+        margin: 0;
+        padding: 0;
+    }
+    .container {
+        height: 100vh;
+        width: 100vw;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    .title {
+        font-family: 'Reem Kufi', sans-serif;
+        font-size: 3em;
+        color: #000;
+        text-align: center;
+    }
+</style>
+<body>
+    <div class="container">
+        <p class="title">
+            Usuario confirmado exitosamente
+        </p>
+    </div>
+</body>
+<script th:inline="javascript">
+    /*<![CDATA[*/
+    var link = /*[[${link}]]*/ 'default';
+    /*]]>*/
+</script>
+
+<script type="application/javascript">
+    let redirect = () => {
+        setTimeout(() => {
+            window.location = link
+        }, 2000);
+    }
+
+    window.addEventListener('DOMContentLoaded', redirect);
+</script>
+
+</html>

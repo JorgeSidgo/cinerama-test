@@ -45,13 +45,14 @@ public class CtgMovieServiceImpl implements CtgMovieService {
     SctUserRepository sctUserRepository;
 
     @Override
-    public Page<CtgMovieDTO> getActiveMovies(Specification<CtgMovie> spec, int page, int size, String sort) {
+    public Page<CtgMovieDTO> getMovies(Specification<CtgMovie> spec, int page, int size, String sort) {
         Page<CtgMovieDTO> finalMovies = null;
         Page<CtgMovieDTO> moviesDTO;
+        Page<CtgMovie> movies;
         Pageable pageable;
 
         pageable = getPageable(page, size, sort);
-        Page<CtgMovie> movies = ctgMovieRepository.findAll(spec, pageable);
+        movies = ctgMovieRepository.findAll(spec, pageable);
         moviesDTO = movies.map(CtgMovieDTO::fromEntity);
         finalMovies = moviesDTO.map(item -> {
             List<CtgImageDTO> images = ctgImageRepository.getCtgImageByMovieId(item.getId());

@@ -3,6 +3,7 @@ package com.sidgo.cinerama.config;
 import com.sidgo.cinerama.auth.JWTAuthorizationFilter;
 import com.sidgo.cinerama.model.service.impl.UserDetailsServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
@@ -27,8 +28,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     PasswordEncoder passwordEncoder;
 
+    @Value("${path.allowed.cors}")
+    private String allowedPaths;
+
     @Bean
-    public UserDetailsService userDetailsService(){
+    public UserDetailsService userDetailsService() {
         return new UserDetailsServiceImpl();
     }
 
@@ -52,10 +56,16 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers(HttpMethod.GET, "/v1/images/{image}").permitAll()
                 .antMatchers(HttpMethod.GET, "/v1/movies").permitAll()
                 .antMatchers(HttpMethod.GET, "/v1/movies/{id}").permitAll()
+                .antMatchers(HttpMethod.POST, "/v1/users").permitAll()
+                .antMatchers(HttpMethod.GET, "/confirm/{userCode}").permitAll()
+                .antMatchers(HttpMethod.GET, "/forgot/{email}").permitAll()
+                .antMatchers(HttpMethod.GET, "/recover/{userCode}").permitAll()
                 .antMatchers(HttpMethod.GET, "/v1/movies/admin").hasRole("ADMIN")
                 .antMatchers(HttpMethod.POST, "/v1/movies").hasRole("ADMIN")
                 .antMatchers(HttpMethod.PUT, "/v1/movies").hasRole("ADMIN")
                 .antMatchers(HttpMethod.DELETE, "/v1/movies").hasRole("ADMIN")
+                .antMatchers(HttpMethod.GET, "/v1/users").hasRole("ADMIN")
+                .antMatchers(HttpMethod.GET, "/v1/users/{id}/role/{idRole}").hasRole("ADMIN")
                 .anyRequest().authenticated();
     }
 
@@ -67,7 +77,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Bean
     CorsConfigurationSource corsConfigurationSource() {
         final CorsConfiguration configuration = new CorsConfiguration();
-        configuration.setAllowedOrigins(Arrays.asList("http://localhost:4200"));
+        configuration.setAllowedOrigins(Arrays.asList(this.allowedPaths));
         configuration.setAllowedMethods(Arrays.asList("*"));
         configuration.setAllowedHeaders(Arrays.asList("*"));
         final UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();

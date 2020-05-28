@@ -45,7 +45,7 @@ public class MovieController {
 
             response.setCode(ResponseDTO.COD_OK);
             response.setMessage(ResponseDTO.MSG_OK);
-            response.setResult(ctgMovieService.getActiveMovies(spec, page, size, sort));
+            response.setResult(ctgMovieService.getMovies(spec, page, size, sort));
             status = HttpStatus.OK;
         } catch (Exception ex) {
             response.setCode(ResponseDTO.COD_ERR);
@@ -80,7 +80,7 @@ public class MovieController {
 
             response.setCode(ResponseDTO.COD_OK);
             response.setMessage(ResponseDTO.MSG_OK);
-            response.setResult(ctgMovieService.getActiveMovies(spec, page, size, sort));
+            response.setResult(ctgMovieService.getMovies(spec, page, size, sort));
             status = HttpStatus.OK;
         } catch (Exception ex) {
             response.setCode(ResponseDTO.COD_ERR);

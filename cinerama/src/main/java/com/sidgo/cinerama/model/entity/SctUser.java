@@ -3,6 +3,7 @@ package com.sidgo.cinerama.model.entity;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
+import java.util.Date;
 
 @Entity
 @Table(name = "sct_user", schema = "cinerama")
@@ -11,6 +12,9 @@ public class SctUser {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
+
+    @Column(name = "code")
+    private String code;
 
     @Column(name = "username")
     private String userName;
@@ -35,8 +39,19 @@ public class SctUser {
     @JoinColumn(name = "id_profile")
     private SctProfile profile;
 
+    /*
+     *   The field State from Entity SctUser varies depending on the following:
+     *       1 -> Active User
+     *       2 -> Unconfirmed User
+     *       3 -> User waiting for password reset
+     *       4 -> Inactive User (soft delete)
+     */
+
     @Column(name = "state")
     private int state;
+
+    @Column(name = "created_at")
+    private Date createdAt;
 
     public SctUser() {
     }
@@ -45,8 +60,9 @@ public class SctUser {
         this.id = id;
     }
 
-    public SctUser(long id, String userName, String firstNames, String lastNames, String email, String token, String pwd, SctProfile profile, int state) {
+    public SctUser(long id, String code, String userName, String firstNames, String lastNames, String email, String token, String pwd, SctProfile profile, int state, Date createdAt) {
         this.id = id;
+        this.code = code;
         this.userName = userName;
         this.firstNames = firstNames;
         this.lastNames = lastNames;
@@ -55,6 +71,7 @@ public class SctUser {
         this.pwd = pwd;
         this.profile = profile;
         this.state = state;
+        this.createdAt = createdAt;
     }
 
     public long getId() {
@@ -63,6 +80,14 @@ public class SctUser {
 
     public void setId(long id) {
         this.id = id;
+    }
+
+    public String getCode() {
+        return code;
+    }
+
+    public void setCode(String code) {
+        this.code = code;
     }
 
     public String getUserName() {
@@ -127,5 +152,13 @@ public class SctUser {
 
     public void setState(int state) {
         this.state = state;
+    }
+
+    public Date getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(Date createdAt) {
+        this.createdAt = createdAt;
     }
 }

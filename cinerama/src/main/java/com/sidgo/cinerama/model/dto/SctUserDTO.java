@@ -1,11 +1,15 @@
 package com.sidgo.cinerama.model.dto;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
+import com.sidgo.cinerama.model.entity.SctUser;
 
+import java.util.Date;
+
+@JsonInclude(JsonInclude.Include.NON_DEFAULT)
 public class SctUserDTO {
 
     private long id;
+    private String code;
     private String userName;
     private String firstNames;
     private String lastNames;
@@ -14,30 +18,32 @@ public class SctUserDTO {
     private long profileId;
     private String profileDisplay;
     private int state;
-    @JsonIgnore
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private String pwd;
     @JsonInclude(JsonInclude.Include.NON_NULL)
     private String tempPwd;
+    private Date createdAt;
 
 
     public SctUserDTO() {
 
     }
 
-    public SctUserDTO(long id, String userName, String firstNames, String lastNames, String email, String profile, long profileId, String profileDisplay, int state) {
+    public SctUserDTO(long id, String userName, String firstNames, String lastNames, String email, long profileId, String profileDisplay, int state, Date createdAt) {
         this.id = id;
         this.userName = userName;
         this.firstNames = firstNames;
         this.lastNames = lastNames;
         this.email = email;
-        this.profile = profile;
         this.profileId = profileId;
         this.profileDisplay = profileDisplay;
         this.state = state;
+        this.createdAt = createdAt;
     }
 
-    public SctUserDTO(long id, String userName, String firstNames, String lastNames, String email, String profile, long profileId, String profileDisplay, String pwd, int state) {
+    public SctUserDTO(long id, String code, String userName, String firstNames, String lastNames, String email, String profile, long profileId, String profileDisplay, String pwd, int state, Date createdAt) {
         this.id = id;
+        this.code = code;
         this.userName = userName;
         this.firstNames = firstNames;
         this.lastNames = lastNames;
@@ -47,6 +53,21 @@ public class SctUserDTO {
         this.profileDisplay = profileDisplay;
         this.pwd = pwd;
         this.state = state;
+        this.createdAt = createdAt;
+    }
+
+    public static SctUserDTO fromEntity(SctUser entity) {
+        return new SctUserDTO(
+                entity.getId(),
+                entity.getUserName(),
+                entity.getFirstNames(),
+                entity.getLastNames(),
+                entity.getEmail(),
+                entity.getProfile().getId(),
+                entity.getProfile().getDisplayName(),
+                entity.getState(),
+                entity.getCreatedAt()
+        );
     }
 
     public long getId() {
@@ -55,6 +76,14 @@ public class SctUserDTO {
 
     public void setId(long id) {
         this.id = id;
+    }
+
+    public String getCode() {
+        return code;
+    }
+
+    public void setCode(String code) {
+        this.code = code;
     }
 
     public String getUserName() {
@@ -137,5 +166,11 @@ public class SctUserDTO {
         this.state = state;
     }
 
+    public Date getCreatedAt() {
+        return createdAt;
+    }
 
+    public void setCreatedAt(Date createdAt) {
+        this.createdAt = createdAt;
+    }
 }

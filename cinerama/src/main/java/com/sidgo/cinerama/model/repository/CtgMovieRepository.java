@@ -2,15 +2,12 @@ package com.sidgo.cinerama.model.repository;
 
 import com.sidgo.cinerama.model.dto.CtgMovieDTO;
 import com.sidgo.cinerama.model.entity.CtgMovie;
-import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface CtgMovieRepository extends JpaRepository<CtgMovie, Long>, PagingAndSortingRepository<CtgMovie, Long>, JpaSpecificationExecutor<CtgMovie> {
+public interface CtgMovieRepository extends BaseRepository<CtgMovie, Long> {
 
     @Query(
             "select new com.sidgo.cinerama.model.dto.CtgMovieDTO(" +
