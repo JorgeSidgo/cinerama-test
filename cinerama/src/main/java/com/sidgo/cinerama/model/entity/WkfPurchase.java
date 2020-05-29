@@ -34,6 +34,9 @@ public class WkfPurchase {
     @Column(name = "created_at")
     private Date createdAt;
 
+    @Column(name = "estimated_return")
+    private Date estimatedReturn;
+
     public WkfPurchase() {
     }
 
@@ -41,7 +44,7 @@ public class WkfPurchase {
         this.id = id;
     }
 
-    public WkfPurchase(long id, SctUser user, CtgMovie movie, CtgPurchaseType purchaseType, CtgPurchaseState purchaseState, BigDecimal total, Date createdAt) {
+    public WkfPurchase(long id, SctUser user, CtgMovie movie, CtgPurchaseType purchaseType, CtgPurchaseState purchaseState, BigDecimal total, Date createdAt, Date estimatedReturn) {
         this.id = id;
         this.user = user;
         this.movie = movie;
@@ -49,6 +52,7 @@ public class WkfPurchase {
         this.purchaseState = purchaseState;
         this.total = total;
         this.createdAt = createdAt;
+        this.estimatedReturn = estimatedReturn;
     }
 
     public long getId() {
@@ -105,6 +109,14 @@ public class WkfPurchase {
 
     public void setCreatedAt(Date createdAt) {
         this.createdAt = createdAt;
+    }
+
+    public Date getEstimatedReturn() {
+        return estimatedReturn;
+    }
+
+    public void setEstimatedReturn(Date estimatedReturn) {
+        this.estimatedReturn = estimatedReturn;
     }
 }
 

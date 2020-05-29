@@ -1,13 +1,12 @@
 package com.sidgo.cinerama.controller;
 
+import com.sidgo.cinerama.model.dto.PasswordUpdateDTO;
 import com.sidgo.cinerama.model.dto.ResponseDTO;
 import com.sidgo.cinerama.model.service.SctUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 public class AccountMgmtController {
@@ -27,7 +26,7 @@ public class AccountMgmtController {
     }
 
     @GetMapping("/forgot/{email}")
-    private ResponseEntity<ResponseDTO> recoverPassword(
+    private ResponseEntity<ResponseDTO> forgotPassword(
             @PathVariable("email") String email
     ) {
         ResponseDTO response = new ResponseDTO();
@@ -37,6 +36,30 @@ public class AccountMgmtController {
             response.setCode(ResponseDTO.COD_OK);
             response.setMessage(ResponseDTO.MSG_OK);
             response.setResult(sctUserService.forgotPassword(email));
+            status = HttpStatus.OK;
+        } catch (Exception ex) {
+            response.setCode(ResponseDTO.COD_ERR);
+            response.setMessage(ResponseDTO.MSG_ERR);
+            response.setErrors(ex.getMessage().toString());
+            status = HttpStatus.INTERNAL_SERVER_ERROR;
+        }
+
+        response.setStatus(status.value());
+        return new ResponseEntity<>(response, status);
+    }
+
+    @PostMapping("/recovery/{userCode}")
+    private ResponseEntity<ResponseDTO> recoverPassword(
+            @PathVariable("userCode") String userCode,
+            @RequestBody PasswordUpdateDTO passwordUpdateDTO
+    ) {
+        ResponseDTO response = new ResponseDTO();
+        HttpStatus status;
+
+        try {
+            response.setCode(ResponseDTO.COD_OK);
+            response.setMessage(ResponseDTO.MSG_OK);
+            response.setResult(sctUserService.recoverPassword(userCode, passwordUpdateDTO));
             status = HttpStatus.OK;
         } catch (Exception ex) {
             response.setCode(ResponseDTO.COD_ERR);

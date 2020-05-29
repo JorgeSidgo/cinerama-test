@@ -28,9 +28,7 @@
 </style>
 <body>
     <div class="container">
-        <p class="title">
-            Usuario confirmado exitosamente
-        </p>
+        <p class="title" th:text="${message}"></p>
     </div>
 </body>
 <script th:inline="javascript">
@@ -43,7 +41,7 @@
     let redirect = () => {
         setTimeout(() => {
             window.location = link
-        }, 2000);
+        }, 3000);
     }
 
     window.addEventListener('DOMContentLoaded', redirect);

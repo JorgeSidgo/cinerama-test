@@ -229,6 +229,29 @@ public class MovieController {
         return new ResponseEntity<>(response, status);
     }
 
+    @PutMapping("/{id}/availability")
+    public ResponseEntity<ResponseDTO> toggleAvailability(
+            @PathVariable("id") long id
+    ) {
+        ResponseDTO response = new ResponseDTO();
+        HttpStatus status;
+
+        try {
+            response.setCode(ResponseDTO.COD_OK);
+            response.setMessage(ResponseDTO.MSG_OK);
+            response.setResult(ctgMovieService.toggleAvailability(id));
+            status = HttpStatus.OK;
+        } catch (Exception ex) {
+            response.setCode(ResponseDTO.COD_ERR);
+            response.setMessage(ResponseDTO.MSG_ERR);
+            response.setErrors(ex.getMessage());
+            status = HttpStatus.INTERNAL_SERVER_ERROR;
+        }
+
+        response.setStatus(status.value());
+        return new ResponseEntity<>(response, status);
+    }
+
     @PostMapping("/{id}/like")
     public ResponseEntity<ResponseDTO> likeMovie(
             @PathVariable("id") long id

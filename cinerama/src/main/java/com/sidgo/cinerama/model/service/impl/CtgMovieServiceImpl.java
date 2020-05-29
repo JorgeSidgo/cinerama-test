@@ -144,6 +144,17 @@ public class CtgMovieServiceImpl implements CtgMovieService {
     }
 
     @Override
+    public CtgMovieDTO toggleAvailability(long id) {
+        CtgMovie movie = ctgMovieRepository.getOne(id);
+
+        long availability = (movie.getAvailability().getId() == 1) ? 2 : 1;
+
+        movie.setAvailability(new CtgAvailability(availability));
+
+        return CtgMovieDTO.fromEntity(ctgMovieRepository.save(movie));
+    }
+
+    @Override
     public boolean likeMovie(long id) {
         Object username = (SecurityContextHolder.getContext().getAuthentication().getPrincipal());
         SctUserDTO user = sctUserRepository.getUserByUsername(username.toString());

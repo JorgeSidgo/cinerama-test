@@ -5,7 +5,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class JWTConstants {
 
-    public static final String SECRET_KEY = "112358";
+    public static final String SECRET_KEY = "1123581321";
     public static final String ISSUER = "Cinerama";
     public static final String TOKEN_PREFIX = "Bearer ";
     public static final String AUTH_HEADER = "Authorization";

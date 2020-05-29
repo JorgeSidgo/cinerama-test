@@ -27,7 +27,7 @@ public interface SctUserRepository extends BaseRepository<SctUser, Long> {
     @Query("SELECT new com.sidgo.cinerama.model.dto.SctUserDTO(u.id, u.code, u.userName, u.firstNames, u.lastNames, u.email, u.profile.name, u.profile.id, u.profile.displayName, u.pwd, u.state, u.createdAt) from SctUser u where u.id = :id")
     public SctUserDTO getUserById(@Param("id") long id);
 
-    @Query("SELECT new com.sidgo.cinerama.model.dto.SctUserDTO(u.id, u.userName, u.firstNames, u.lastNames, u.email, u.profile.id, u.profile.displayName, u.state, u.createdAt) from SctUser u where u.state = 1 or u.state = 2 and u.id = :id")
+    @Query("SELECT new com.sidgo.cinerama.model.dto.SctUserDTO(u.id, u.userName, u.firstNames, u.lastNames, u.email, u.profile.id, u.profile.displayName, u.state, u.createdAt) from SctUser u where u.id = :id and u.state = 1 or u.state = 2")
     public SctUserDTO getUserByIdShow(@Param("id") long id);
 
 }

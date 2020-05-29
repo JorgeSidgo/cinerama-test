@@ -46,10 +46,11 @@ public class CtgMovieDTO {
         this.state = movie.isState();
     }
 
-    public CtgMovieDTO(long id, String title, Integer popularity) {
+    public CtgMovieDTO(long id, String title, Integer popularity, String availability) {
         this.id = id;
         this.title = title;
         this.popularity = popularity;
+        this.availability = availability;
     }
 
     public CtgMovieDTO(long id, String title, String description, long directorId, String directorName, long genreId, String genreName, int stock, BigDecimal rentalPrice, BigDecimal salePrice, long availabilityId, String availability, Integer popularity, boolean state) {
@@ -73,7 +74,8 @@ public class CtgMovieDTO {
         return new CtgMovieDTO(
                 entity.getId(),
                 entity.getTitle(),
-                entity.getPopularity()
+                entity.getPopularity(),
+                entity.getAvailability().getDescription()
         );
     }
 

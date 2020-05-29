@@ -1,6 +1,7 @@
 package com.sidgo.cinerama.model.service.impl;
 
 import com.sidgo.cinerama.model.dto.MailDTO;
+import com.sidgo.cinerama.model.dto.PasswordUpdateDTO;
 import com.sidgo.cinerama.model.dto.SctUserDTO;
 import com.sidgo.cinerama.model.entity.SctProfile;
 import com.sidgo.cinerama.model.entity.SctUser;
@@ -113,7 +114,7 @@ public class SctUserServiceImpl implements SctUserService {
             mailDTO.setTo(sctUserDTO.getEmail());
             mailDTO.setModel(model);
 
-            mailService.newUserMail(mailDTO);
+            mailService.sendMail(mailDTO, "newUserMail.html", MailDTO.NEW_USER);
 
         } catch (ExistingUserException ex) {
             throw ex;
@@ -141,15 +142,32 @@ public class SctUserServiceImpl implements SctUserService {
         user.setState(1);
         user = sctUserRepository.save(user);
         context.setVariable("link", this.webAppUrl);
-        String html = templateEngine.process("confirmed.html", context);
+        context.setVariable("message", "Confirmed account");
+        String html = templateEngine.process("redirect.html", context);
         return html;
     }
 
     @Override
-    public boolean forgotPassword(String email) throws IOException, MessagingException {
+    public String recoverPassword(String userCode, PasswordUpdateDTO passwordUpdateDTO) {
+        Context context = new Context();
+        SctUser user = sctUserRepository.getUserEntityByCode(userCode);
+        user.setPwd(passwordEncoder.encode(passwordUpdateDTO.getNewPassword()));
+        user = sctUserRepository.save(user);
+        context.setVariable("link", this.webAppUrl);
+        context.setVariable("message", "Password updated");
+        String html = templateEngine.process("redirect.html", context);
+        return html;
+    }
+
+    @Override
+    public boolean forgotPassword(String email) throws Exception {
 
         try {
             SctUser user = sctUserRepository.getUserEntityByEmail(email);
+
+            if (user == null)
+                throw new Exception("No users found with this e-mail");
+
             SctUserDTO sctUserDTO;
             user.setState(3);
 
@@ -163,11 +181,11 @@ public class SctUserServiceImpl implements SctUserService {
             mailDTO.setTo(sctUserDTO.getEmail());
             mailDTO.setModel(model);
 
-            mailService.recoverPassMail(mailDTO);
+            mailService.sendMail(mailDTO, "forgotPassword.html", MailDTO.FORGOT_PASSWORD);
 
             return true;
         } catch (Exception ex) {
-            return false;
+            throw ex;
         }
 
     }

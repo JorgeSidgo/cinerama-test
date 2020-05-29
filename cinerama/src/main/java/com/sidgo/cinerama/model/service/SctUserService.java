@@ -1,5 +1,6 @@
 package com.sidgo.cinerama.model.service;
 
+import com.sidgo.cinerama.model.dto.PasswordUpdateDTO;
 import com.sidgo.cinerama.model.dto.SctUserDTO;
 import com.sidgo.cinerama.model.entity.SctUser;
 import com.sidgo.cinerama.model.exception.ExistingUserException;
@@ -20,7 +21,9 @@ public interface SctUserService {
 
     String confirmAccount(String userCode);
 
-    boolean forgotPassword(String email) throws IOException, MessagingException;
+    String recoverPassword(String userCode, PasswordUpdateDTO passwordUpdateDTO);
+
+    boolean forgotPassword(String email) throws Exception;
 
     SctUserDTO updatePassword(SctUserDTO userDTO);
 

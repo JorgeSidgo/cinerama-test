@@ -7,6 +7,8 @@ public class MailDTO {
     public static final String PERSONAL = "Cinerama";
     public static final String NEW_USER = "User registered";
     public static final String FORGOT_PASSWORD = "Password recovery";
+    public static final String PURCHASE = "Purchased movie";
+    public static final String RENT = "Rented movie";
 
     private String from;
     private String to;

@@ -13,6 +13,7 @@ public interface CtgMovieService {
     CtgMovieDTO getActiveMovie(long id);
     CtgMovieDTO save(CtgMovieDTO movie) throws IOException, URISyntaxException;
     CtgMovieDTO update(long id, CtgMovieDTO movie);
+    CtgMovieDTO toggleAvailability(long id);
     boolean likeMovie(long id);
     boolean softDelete(long id);
 }
