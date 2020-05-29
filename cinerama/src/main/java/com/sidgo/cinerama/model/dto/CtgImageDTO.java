@@ -3,6 +3,9 @@ package com.sidgo.cinerama.model.dto;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.sidgo.cinerama.model.entity.CtgImage;
 
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
+
 @JsonInclude(JsonInclude.Include.NON_DEFAULT)
 public class CtgImageDTO {
     private long id;
@@ -11,6 +14,8 @@ public class CtgImageDTO {
     private long imageTypeId;
     private String imageType;
     private long movieId;
+    @NotNull(message = "content may not be null")
+    @NotEmpty(message = "content may not be empty")
     private String content;
     private String format;
 

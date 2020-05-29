@@ -81,10 +81,10 @@ public class SctUserServiceImpl implements SctUserService {
             String userCode = UUID.randomUUID().toString();
 
             sctUser.setCode(userCode);
-            sctUser.setFirstNames(userDTO.getFirstNames());
-            sctUser.setLastNames(userDTO.getLastNames());
-            sctUser.setUserName(userDTO.getUserName());
-            sctUser.setEmail(userDTO.getEmail());
+            sctUser.setFirstNames(userDTO.getFirstNames().trim());
+            sctUser.setLastNames(userDTO.getLastNames().trim());
+            sctUser.setUserName(userDTO.getUserName().trim());
+            sctUser.setEmail(userDTO.getEmail().trim());
             sctUser.setProfile(new SctProfile(1));
 
             /*

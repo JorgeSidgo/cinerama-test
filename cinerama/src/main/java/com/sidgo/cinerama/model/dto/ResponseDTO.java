@@ -8,6 +8,9 @@ public class ResponseDTO {
     public static String COD_ERR = "99";
     public static String MSG_ERR = "Incorrect Processing";
 
+    public static String COD_ERR_VAL = "98";
+    public static String MSG_ERR_VAL = "Validation error";
+
     public static String COD_AUTH_OK = "01";
     public static String MSG_AUTH_OK = "Authorized";
 

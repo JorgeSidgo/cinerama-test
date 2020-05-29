@@ -7,11 +7,15 @@ import com.sidgo.cinerama.model.entity.CtgMovie;
 import com.sidgo.cinerama.model.service.CtgImageService;
 import com.sidgo.cinerama.model.service.CtgMovieService;
 import com.sidgo.cinerama.model.specification.movie.*;
+import com.sidgo.cinerama.util.ValidationHandler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import javax.validation.ConstraintViolationException;
+import javax.validation.Valid;
 
 @RestController
 @RequestMapping("/v1/movies")
@@ -22,6 +26,9 @@ public class MovieController {
 
     @Autowired
     CtgImageService ctgImageService;
+
+    @Autowired
+    ValidationHandler validationHandler;
 
     @GetMapping
     public ResponseEntity<ResponseDTO> getActiveMovies(
@@ -116,7 +123,7 @@ public class MovieController {
 
     @PostMapping
     public ResponseEntity<ResponseDTO> saveMovie(
-            @RequestBody CtgMovieDTO movieDTO
+            @Valid @RequestBody CtgMovieDTO movieDTO
     ) {
         ResponseDTO response = new ResponseDTO();
         HttpStatus status;
@@ -126,6 +133,8 @@ public class MovieController {
             response.setMessage(ResponseDTO.MSG_OK);
             response.setResult(ctgMovieService.save(movieDTO));
             status = HttpStatus.CREATED;
+        } catch (ConstraintViolationException ex) {
+            return validationHandler.handleValidationExceptions(ex);
         } catch (Exception ex) {
             response.setCode(ResponseDTO.COD_ERR);
             response.setMessage(ResponseDTO.MSG_ERR);
@@ -139,7 +148,7 @@ public class MovieController {
     @PutMapping("/{id}")
     public ResponseEntity<ResponseDTO> updateMovie(
             @PathVariable("id") long id,
-            @RequestBody CtgMovieDTO movieDTO
+            @Valid @RequestBody CtgMovieDTO movieDTO
     ) {
         ResponseDTO response = new ResponseDTO();
         HttpStatus status;
@@ -149,6 +158,8 @@ public class MovieController {
             response.setMessage(ResponseDTO.MSG_OK);
             response.setResult(ctgMovieService.update(id, movieDTO));
             status = HttpStatus.OK;
+        } catch (ConstraintViolationException ex) {
+            return validationHandler.handleValidationExceptions(ex);
         } catch (Exception ex) {
 
             response.setCode(ResponseDTO.COD_ERR);
@@ -185,7 +196,7 @@ public class MovieController {
     @PostMapping("/{id}/images")
     public ResponseEntity<ResponseDTO> saveMovieImage(
             @PathVariable("id") long id,
-            @RequestBody CtgImageDTO image
+            @Valid @RequestBody CtgImageDTO image
     ) {
         ResponseDTO response = new ResponseDTO();
         HttpStatus status;
@@ -195,6 +206,8 @@ public class MovieController {
             response.setMessage(ResponseDTO.MSG_OK);
             response.setResult(ctgImageService.save(id, image));
             status = HttpStatus.CREATED;
+        } catch (ConstraintViolationException ex) {
+            return validationHandler.handleValidationExceptions(ex);
         } catch (Exception ex) {
             response.setCode(ResponseDTO.COD_ERR);
             response.setMessage(ResponseDTO.MSG_ERR);
@@ -209,7 +222,7 @@ public class MovieController {
     public ResponseEntity<ResponseDTO> updateMovieImages(
             @PathVariable("id") long id,
             @PathVariable("idImage") long idImage,
-            @RequestBody CtgImageDTO image
+            @Valid @RequestBody CtgImageDTO image
     ) {
         ResponseDTO response = new ResponseDTO();
         HttpStatus status;
@@ -219,6 +232,8 @@ public class MovieController {
             response.setMessage(ResponseDTO.MSG_OK);
             response.setResult(ctgImageService.updateImage(id, idImage, image));
             status = HttpStatus.OK;
+        } catch (ConstraintViolationException ex) {
+            return validationHandler.handleValidationExceptions(ex);
         } catch (Exception ex) {
             response.setCode(ResponseDTO.COD_ERR);
             response.setMessage(ResponseDTO.MSG_ERR);

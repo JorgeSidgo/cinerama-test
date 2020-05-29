@@ -9,7 +9,7 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface SctUserRepository extends BaseRepository<SctUser, Long> {
 
-    @Query("SELECT new com.sidgo.cinerama.model.dto.SctUserDTO(u.id, u.code, u.userName, u.firstNames, u.lastNames, u.email, u.profile.name, u.profile.id, u.profile.displayName, u.pwd, u.state, u.createdAt) from SctUser u where u.userName = :username")
+    @Query("SELECT new com.sidgo.cinerama.model.dto.SctUserDTO(u.id, u.code, u.userName, u.firstNames, u.lastNames, u.email, u.profile.name, u.profile.id, u.profile.displayName, u.pwd, u.state, u.createdAt) from SctUser u where u.userName = :username and u.state = 1")
     public SctUserDTO getUserByUsername(@Param("username") String username);
 
     @Query("SELECT new com.sidgo.cinerama.model.dto.SctUserDTO(u.id, u.code, u.userName, u.firstNames, u.lastNames, u.email, u.profile.name, u.profile.id, u.profile.displayName, u.pwd, u.state, u.createdAt) from SctUser u where u.email = :email")

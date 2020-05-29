@@ -85,8 +85,8 @@ public class CtgMovieServiceImpl implements CtgMovieService {
         List<CtgImageDTO> ctgImageDTOList;
 
         try {
-            ctgMovie.setTitle(movie.getTitle());
-            ctgMovie.setDescription(movie.getDescription());
+            ctgMovie.setTitle(movie.getTitle().trim());
+            ctgMovie.setDescription(movie.getDescription().trim());
             ctgMovie.setDirector(new CtgDirector(movie.getDirectorId()));
             ctgMovie.setGenre(new CtgGenre(movie.getGenreId()));
             ctgMovie.setStock(movie.getStock());
@@ -121,8 +121,8 @@ public class CtgMovieServiceImpl implements CtgMovieService {
 
             wkfMovieUpdateLogService.save(ctgMovie, movie);
 
-            ctgMovie.setTitle(movie.getTitle());
-            ctgMovie.setDescription(movie.getDescription());
+            ctgMovie.setTitle(movie.getTitle().trim());
+            ctgMovie.setDescription(movie.getDescription().trim());
             ctgMovie.setDirector(new CtgDirector(movie.getDirectorId()));
             ctgMovie.setGenre(new CtgGenre(movie.getGenreId()));
             ctgMovie.setStock(movie.getStock());
@@ -136,7 +136,9 @@ public class CtgMovieServiceImpl implements CtgMovieService {
             ctgMovie = ctgMovieRepository.save(ctgMovie);
             ctgMovieDTO = new CtgMovieDTO(ctgMovie);
 
-        } catch (Exception ex) {
+        }
+
+        catch (Exception ex) {
             throw ex;
         }
 

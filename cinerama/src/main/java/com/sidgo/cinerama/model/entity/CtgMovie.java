@@ -1,6 +1,8 @@
 package com.sidgo.cinerama.model.entity;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
 import java.util.Collection;
 
@@ -12,9 +14,13 @@ public class CtgMovie {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
+    @NotNull(message = "title may not be null")
+    @NotEmpty(message = "title may not be empty")
     @Column(name = "title")
     private String title;
 
+    @NotNull(message = "description may not be null")
+    @NotEmpty(message = "description may not be empty")
     @Column(name = "description")
     private String description;
 
@@ -29,9 +35,13 @@ public class CtgMovie {
     @Column(name = "stock")
     private int stock;
 
+    @NotNull(message = "rentalPrice may not be null")
+    @NotEmpty(message = "rentalPrice may not be empty")
     @Column(name = "rental_price")
     private BigDecimal rentalPrice;
 
+    @NotNull(message = "salePrice may not be null")
+    @NotEmpty(message = "salePrice may not be empty")
     @Column(name = "sale_price")
     private BigDecimal salePrice;
 

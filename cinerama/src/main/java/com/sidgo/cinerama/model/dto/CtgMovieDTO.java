@@ -3,6 +3,8 @@ package com.sidgo.cinerama.model.dto;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.sidgo.cinerama.model.entity.CtgMovie;
 
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
 import java.util.List;
 
@@ -10,14 +12,26 @@ import java.util.List;
 public class CtgMovieDTO {
 
     private long id;
+
+    @NotNull(message = "title may not be null")
+    @NotEmpty(message = "title may not be empty")
     private String title;
+
+    @NotNull(message = "description may not be null")
+    @NotEmpty(message = "description may not be empty")
     private String description;
     private long directorId;
     private String directorName;
     private long genreId;
     private String genreName;
     private int stock;
+
+    @NotNull(message = "rentalPrice may not be null")
+    @NotEmpty(message = "rentalPrice may not be empty")
     private BigDecimal rentalPrice;
+
+    @NotNull(message = "salePrice may not be null")
+    @NotEmpty(message = "salePrice may not be empty")
     private BigDecimal salePrice;
     private long availabilityId;
     private String availability;

@@ -28,6 +28,10 @@ public class UserDetailsServiceImpl implements UserDetailsService {
             throw new UsernameNotFoundException("User not found: " + username);
         }
 
+        if(userDTO.getState() == 2) {
+            throw new UsernameNotFoundException("Account has not been confirmed yet");
+        }
+
         List<GrantedAuthority> grantedAuthorities = AuthorityUtils
                 .commaSeparatedStringToAuthorityList(userDTO.getProfile());
 

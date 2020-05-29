@@ -3,6 +3,8 @@ package com.sidgo.cinerama.model.dto;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.sidgo.cinerama.model.entity.SctUser;
 
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import java.util.Date;
 
 @JsonInclude(JsonInclude.Include.NON_DEFAULT)
@@ -10,9 +12,21 @@ public class SctUserDTO {
 
     private long id;
     private String code;
+
+    @NotNull(message = "userName may not be null")
+    @NotEmpty(message = "userName may not be empty")
     private String userName;
+
+    @NotNull(message = "firstNames may not be null")
+    @NotEmpty(message = "firstNames may not be empty")
     private String firstNames;
+
+    @NotNull(message = "lastNames may not be null")
+    @NotEmpty(message = "lastNames may not be empty")
     private String lastNames;
+
+    @NotNull(message = "email may not be null")
+    @NotEmpty(message = "email may not be empty")
     private String email;
     private String profile;
     private long profileId;

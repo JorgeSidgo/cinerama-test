@@ -3,6 +3,8 @@ package com.sidgo.cinerama.model.entity;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import java.util.Date;
 
 @Entity
@@ -16,15 +18,23 @@ public class SctUser {
     @Column(name = "code")
     private String code;
 
+    @NotNull(message = "userName may not be null")
+    @NotEmpty(message = "userName may not be empty")
     @Column(name = "username")
     private String userName;
 
+    @NotNull(message = "firstNames may not be null")
+    @NotEmpty(message = "firstNames may not be empty")
     @Column(name = "firstnames")
     private String firstNames;
 
+    @NotNull(message = "lastNames may not be null")
+    @NotEmpty(message = "lastNames may not be empty")
     @Column(name = "lastnames")
     private String lastNames;
 
+    @NotNull(message = "email may not be null")
+    @NotEmpty(message = "email may not be empty")
     @Column(name = "email")
     private String email;
 

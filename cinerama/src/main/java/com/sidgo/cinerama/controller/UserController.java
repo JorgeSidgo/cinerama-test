@@ -6,18 +6,27 @@ import com.sidgo.cinerama.model.entity.SctUser;
 import com.sidgo.cinerama.model.exception.ExistingUserException;
 import com.sidgo.cinerama.model.service.SctUserService;
 import com.sidgo.cinerama.model.specification.user.*;
+import com.sidgo.cinerama.util.ValidationHandler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.ConstraintViolationException;
+import javax.validation.Valid;
+
+@Validated
 @RestController
 @RequestMapping("/v1/users")
 public class UserController {
 
     @Autowired
     SctUserService sctUserService;
+
+    @Autowired
+    ValidationHandler validationHandler;
 
     @GetMapping
     public ResponseEntity<ResponseDTO> getActiveUsers(
@@ -80,9 +89,10 @@ public class UserController {
         return new ResponseEntity<>(response, status);
     }
 
+
     @PostMapping
     public ResponseEntity<ResponseDTO> saveUser(
-            @RequestBody SctUserDTO userDTO
+            @Valid @RequestBody SctUserDTO userDTO
     ) {
         ResponseDTO response = new ResponseDTO();
         HttpStatus status;
@@ -97,6 +107,9 @@ public class UserController {
             response.setCode(ResponseDTO.COD_ERR);
             response.setMessage(ex.getMessage().toString());
             status = HttpStatus.CONFLICT;
+        }
+        catch (ConstraintViolationException ex) {
+            return validationHandler.handleValidationExceptions(ex);
         }
         catch (Exception ex) {
             response.setCode(ResponseDTO.COD_ERR);

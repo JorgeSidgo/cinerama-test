@@ -1,8 +1,17 @@
 package com.sidgo.cinerama.model.dto;
 
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
+
 public class AuthenticationRequestDTO {
 
+
+    @NotNull(message = "username may not be null")
+    @NotEmpty(message = "username may not be empty")
     private String username;
+
+    @NotNull(message = "pwd may not be null")
+    @NotEmpty(message = "pwd may not be empty")
     private String pwd;
 
     public AuthenticationRequestDTO() {
