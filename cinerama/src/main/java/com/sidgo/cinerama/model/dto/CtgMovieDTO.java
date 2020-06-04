@@ -26,12 +26,8 @@ public class CtgMovieDTO {
     private String genreName;
     private int stock;
 
-    @NotNull(message = "rentalPrice may not be null")
-    @NotEmpty(message = "rentalPrice may not be empty")
     private BigDecimal rentalPrice;
 
-    @NotNull(message = "salePrice may not be null")
-    @NotEmpty(message = "salePrice may not be empty")
     private BigDecimal salePrice;
     private long availabilityId;
     private String availability;

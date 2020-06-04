@@ -34,14 +34,10 @@ public class CtgMovie {
 
     @Column(name = "stock")
     private int stock;
-
-    @NotNull(message = "rentalPrice may not be null")
-    @NotEmpty(message = "rentalPrice may not be empty")
+    
     @Column(name = "rental_price")
     private BigDecimal rentalPrice;
 
-    @NotNull(message = "salePrice may not be null")
-    @NotEmpty(message = "salePrice may not be empty")
     @Column(name = "sale_price")
     private BigDecimal salePrice;
 
