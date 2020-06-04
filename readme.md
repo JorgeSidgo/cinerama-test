@@ -27,7 +27,7 @@ the API will run on http://localhost:8080/api
 .
 ### Postman Collection
 .
-the Postman Collection file is located in ./resources, the script will create a new user for the database
+the Postman Collection file is located in ./resources,
 there is a default user in the database 
 **username:** jorgesidgo
 **pwd:** overflow7020
