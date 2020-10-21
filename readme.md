@@ -1,6 +1,3 @@
-# Applaudo Technical Test
-> This challenge is designed to put your skills to the test by designing and building a good RESTful API to manage a small movie rental.
-
 
 ## Cinerama
 .
